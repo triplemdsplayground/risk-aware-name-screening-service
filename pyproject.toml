@@ -7,7 +7,7 @@ name = "risk-aware-name-screening-service"
 version = "0.1.0"
 description = "Synthetic watchlist loading for a risk-aware name screening MVP"
 readme = "plan/plan_v1.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = []
 
 [project.optional-dependencies]
