@@ -1,0 +1,56 @@
+[
+  {
+    "watchlist_id": "wl-001",
+    "primary_name": "John A Smith",
+    "entity_type": "person",
+    "aliases": ["John Smith"],
+    "countries": ["GB"],
+    "birth_year": 1980,
+    "risk_notes": "Synthetic exact-match example for MVP scoring tests."
+  },
+  {
+    "watchlist_id": "wl-002",
+    "primary_name": "Jon Smyth",
+    "entity_type": "person",
+    "aliases": ["Jonathan Smythe"],
+    "countries": ["US"],
+    "birth_year": 1981,
+    "risk_notes": "Synthetic near-match example with similar spelling."
+  },
+  {
+    "watchlist_id": "wl-003",
+    "primary_name": "Maria Elena Garcia",
+    "entity_type": "person",
+    "aliases": ["Maria E Garcia", "M E Garcia"],
+    "countries": ["ES", "MX"],
+    "birth_year": 1975,
+    "risk_notes": "Synthetic alias and metadata-match example."
+  },
+  {
+    "watchlist_id": "wl-004",
+    "primary_name": "Mohamed Al Fayed",
+    "entity_type": "person",
+    "aliases": ["Mohammad Al-Fayed", "Mohamed Fayed"],
+    "countries": ["EG", "GB"],
+    "birth_year": 1950,
+    "risk_notes": "Synthetic transliteration-style near-match example."
+  },
+  {
+    "watchlist_id": "wl-005",
+    "primary_name": "Acme Trading Group",
+    "entity_type": "entity",
+    "aliases": ["Acme TG", "ATG Holdings"],
+    "countries": ["AE"],
+    "birth_year": null,
+    "risk_notes": "Synthetic entity example for non-person screening cases."
+  },
+  {
+    "watchlist_id": "wl-006",
+    "primary_name": "Alicia Noor Khan",
+    "entity_type": "person",
+    "aliases": ["Ali Khan"],
+    "countries": ["PK"],
+    "birth_year": 1992,
+    "risk_notes": "Synthetic metadata-mismatch example for birth-year penalties."
+  }
+]
