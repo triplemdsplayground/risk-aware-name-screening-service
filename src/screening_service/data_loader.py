@@ -20,7 +20,11 @@ class WatchlistEntry(TypedDict):
 def load_sample_watchlist() -> list[WatchlistEntry]:
     """Load the bundled synthetic watchlist JSON file."""
 
-    resource = resources.files("screening_service").joinpath("data/watchlist.sample.json")
+    resource = resources.files("screening_service").joinpath(
+            "data", 
+            "watchlist.sample.json"
+            )
+
     with resource.open("r", encoding="utf-8") as file_obj:
         payload = json.load(file_obj)
 

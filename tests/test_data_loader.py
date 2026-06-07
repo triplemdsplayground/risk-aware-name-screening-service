@@ -4,7 +4,10 @@ from screening_service.data_loader import load_sample_watchlist
 
 
 def test_sample_watchlist_resource_is_packaged() -> None:
-    resource = resources.files("screening_service").joinpath("data/watchlist.sample.json")
+    resource = (
+        resources.files("screening_service")
+        .joinpath("data/watchlist.sample.json")
+    )
 
     assert resource.is_file()
 
