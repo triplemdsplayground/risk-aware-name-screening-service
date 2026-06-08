@@ -1,5 +1,5 @@
 """screening_service package."""
 
-# Package initialization: uncomment and export functions as needed
+# from screening_service.data_loader import load_sample_watchlist
 
-__all__ = []
+# __all__ = ["load_sample_watchlist"]
