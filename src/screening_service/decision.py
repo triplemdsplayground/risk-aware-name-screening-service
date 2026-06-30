@@ -7,7 +7,7 @@ from screening_service.schemas import CandidateMatch, ScreenResponse
 REVIEW_THRESHOLD = 0.80
 
 
-def decide_screening(
+def make_screening_decision(
     candidates: list[CandidateMatch],
     threshold: float = REVIEW_THRESHOLD,
 ) -> ScreenResponse:
@@ -17,7 +17,7 @@ def decide_screening(
         return ScreenResponse(
             decision="PASS",
             decision_reason=(
-                f"No candidate matches were produced; top score did not meet the "
+                f"No candidate matches were produced, so the screening result is PASS "
                 f"review threshold of {threshold:.2f}."
             ),
             threshold=threshold,

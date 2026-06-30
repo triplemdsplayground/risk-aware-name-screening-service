@@ -1,4 +1,4 @@
-from screening_service.decision import REVIEW_THRESHOLD, decide_screening
+from screening_service.decision import REVIEW_THRESHOLD, make_screening_decision
 from screening_service.schemas import CandidateMatch, ScoreComponents
 
 
@@ -24,7 +24,7 @@ def make_candidate(score: float, watchlist_id: str = "wl-001") -> CandidateMatch
 
 
 def test_review_when_top_score_above_threshold() -> None:
-    response = decide_screening(
+    response = make_screening_decision(
         [
             make_candidate(0.91, watchlist_id="wl-high"),
             make_candidate(0.62, watchlist_id="wl-low"),
@@ -36,19 +36,19 @@ def test_review_when_top_score_above_threshold() -> None:
 
 
 def test_review_when_top_score_equals_threshold() -> None:
-    response = decide_screening([make_candidate(REVIEW_THRESHOLD)])
+    response = make_screening_decision([make_candidate(REVIEW_THRESHOLD)])
 
     assert response.decision == "REVIEW"
 
 
 def test_pass_when_top_score_below_threshold() -> None:
-    response = decide_screening([make_candidate(REVIEW_THRESHOLD - 0.01)])
+    response = make_screening_decision([make_candidate(REVIEW_THRESHOLD - 0.01)])
 
     assert response.decision == "PASS"
 
 
 def test_pass_when_candidate_list_is_empty() -> None:
-    response = decide_screening([])
+    response = make_screening_decision([])
 
     assert response.decision == "PASS"
     assert response.candidates == []
@@ -56,7 +56,7 @@ def test_pass_when_candidate_list_is_empty() -> None:
 
 
 def test_decision_reason_references_threshold_and_top_score() -> None:
-    response = decide_screening(
+    response = make_screening_decision(
         [
             make_candidate(0.40, watchlist_id="wl-lower"),
             make_candidate(0.79, watchlist_id="wl-top"),
