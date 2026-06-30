@@ -84,6 +84,16 @@ def test_country_match_adjustment() -> None:
     assert "country_match" in candidate.matched_on
 
 
+def test_country_match_adjustment_is_case_insensitive() -> None:
+    candidate = score_watchlist_record(
+        ScreenRequest(name="John A Smith", country=" gb "),
+        make_record(countries=["GB"]),
+    )
+
+    assert candidate.score_components.country_adjustment == COUNTRY_MATCH_ADJUSTMENT
+    assert "country_match" in candidate.matched_on
+
+
 def test_birth_year_match_adjustment() -> None:
     candidate = score_watchlist_record(
         ScreenRequest(name="John A Smith", birth_year=1980),
