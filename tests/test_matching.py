@@ -1,3 +1,4 @@
+from screening_service.data_loader import WatchlistEntry
 from screening_service.matching import (
     BIRTH_YEAR_MISMATCH_ADJUSTMENT,
     BIRTH_YEAR_MATCH_ADJUSTMENT,
@@ -9,18 +10,29 @@ from screening_service.matching import (
 from screening_service.schemas import ScreenRequest
 
 
-def make_record(**overrides: object) -> dict[str, object]:
-    record: dict[str, object] = {
-        "watchlist_id": "wl-test",
-        "primary_name": "John A Smith",
-        "entity_type": "person",
-        "aliases": ["John Smith", "J A Smith"],
-        "countries": ["GB"],
-        "birth_year": 1980,
-        "risk_notes": "Synthetic test record.",
+
+
+def make_record(
+    *,
+    watchlist_id: str = "wl-test",
+    primary_name: str = "John A Smith",
+    entity_type: str = "person",
+    aliases: list[str] | None = None,
+    countries: list[str] | None = None,
+    birth_year: int | None = 1980,
+    risk_notes: str = "Synthetic test record.",
+) -> WatchlistEntry:
+    return {
+        "watchlist_id": watchlist_id,
+        "primary_name": primary_name,
+        "entity_type": entity_type,
+        "aliases": (
+            aliases if aliases is not None else ["John Smith", "J A Smith"]
+        ),
+        "countries": countries if countries is not None else ["GB"],
+        "birth_year": birth_year,
+        "risk_notes": risk_notes,
     }
-    record.update(overrides)
-    return record
 
 
 def test_normalise_name_lowercases_and_trims() -> None:

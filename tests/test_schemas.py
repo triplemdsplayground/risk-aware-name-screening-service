@@ -56,8 +56,8 @@ def test_screen_request_rejects_whitespace_only_name() -> None:
 
 def test_screen_request_accepts_optional_country_and_birth_year() -> None:
     request = ScreenRequest(
-        name=" Maria Elena Garcia ", 
-        country="MX", 
+        name=" Maria Elena Garcia ",
+        country="MX",
         birth_year=1975,
     )
 

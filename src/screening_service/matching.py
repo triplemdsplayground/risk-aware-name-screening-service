@@ -6,8 +6,9 @@ import re
 import string
 from dataclasses import dataclass
 from difflib import SequenceMatcher
-from typing import Literal, Any
+from typing import Literal
 
+from screening_service.data_loader import WatchlistEntry
 from screening_service.schemas import (
     CandidateMatch,
     ScoreComponents,
@@ -74,7 +75,10 @@ def find_best_name_match(
     )
 
     for alias in aliases:
-        alias_similarity = sequence_similarity(request_name, normalise_name(alias))
+        alias_similarity = sequence_similarity(
+            request_name,
+            normalise_name(alias),
+        )
         if alias_similarity > best_match.similarity:
             best_match = NameMatch(
                 name=alias,
@@ -149,7 +153,9 @@ def build_explanation(
         )
     ]
     if score_components.exact_match_boost > 0.0:
-        explanation_parts.append("Exact primary-name match increased the score.")
+        explanation_parts.append(
+            "Exact primary-name match increased the score."
+        )
     if score_components.alias_exact_match_boost > 0.0:
         explanation_parts.append("Exact alias match increased the score.")
     if score_components.token_overlap_boost > 0.0:
@@ -165,7 +171,7 @@ def build_explanation(
 
 def score_watchlist_record(
     request: ScreenRequest,
-    record: dict[str, Any],
+    record: WatchlistEntry,
 ) -> CandidateMatch:
     """Score one watchlist record against a screening request."""
 
@@ -180,12 +186,18 @@ def score_watchlist_record(
     matched_name_normalised = normalise_name(best_match.name)
     exact_match_boost = (
         EXACT_MATCH_BOOST
-        if best_match.name_type == "primary" and request_name == matched_name_normalised
+        if (
+            best_match.name_type == "primary"
+            and request_name == matched_name_normalised
+        )
         else 0.0
     )
     alias_exact_match_boost = (
         ALIAS_EXACT_MATCH_BOOST
-        if best_match.name_type == "alias" and request_name == matched_name_normalised
+        if (
+            best_match.name_type == "alias"
+            and request_name == matched_name_normalised
+        )
         else 0.0
     )
 
