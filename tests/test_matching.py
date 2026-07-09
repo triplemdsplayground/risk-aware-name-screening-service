@@ -10,8 +10,6 @@ from screening_service.matching import (
 from screening_service.schemas import ScreenRequest
 
 
-
-
 def make_record(
     *,
     watchlist_id: str = "wl-test",

@@ -48,12 +48,12 @@ def test_candidates_are_sorted_by_descending_score(monkeypatch) -> None:
 
     monkeypatch.setattr(
         "screening_service.service.load_sample_watchlist",
-        lambda: watchlist
+        lambda: watchlist,
     )
 
     def fake_score_watchlist_record(
         request: ScreenRequest,
-        record: dict[str, str]
+        record: dict[str, str],
     ) -> CandidateMatch:
         watchlist_id = record["watchlist_id"]
         return make_candidate(score_by_id[watchlist_id], watchlist_id)
@@ -72,7 +72,9 @@ def test_candidates_are_sorted_by_descending_score(monkeypatch) -> None:
     ]
 
 
-def test_only_top_five_candidates_are_returned_when_more_exist(monkeypatch) -> None:
+def test_only_top_five_candidates_are_returned_when_more_exist(
+    monkeypatch
+) -> None:
     watchlist = [{"watchlist_id": f"wl-{index}"} for index in range(6)]
 
     monkeypatch.setattr(
@@ -124,3 +126,4 @@ def test_weak_request_returns_pass() -> None:
 
     assert response.decision == "PASS"
     assert response.candidates
+    assert response.candidates[0].score < response.threshold
