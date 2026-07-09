@@ -21,6 +21,7 @@ def test_screen_endpoint_returns_success_for_valid_request() -> None:
     assert "threshold" in body
     assert "candidates" in body
 
+
 def test_screen_endpoint_rejects_whitespace_only_name() -> None:
     response = client.post(
         "/screen",

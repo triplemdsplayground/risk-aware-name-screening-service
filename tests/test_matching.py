@@ -110,7 +110,9 @@ def test_birth_year_match_adjustment() -> None:
         make_record(),
     )
 
-    assert candidate.score_components.birth_year_adjustment == BIRTH_YEAR_MATCH_ADJUSTMENT
+    assert (
+        candidate.score_components.birth_year_adjustment == BIRTH_YEAR_MATCH_ADJUSTMENT
+    )
     assert "birth_year_match" in candidate.matched_on
 
 
@@ -120,7 +122,10 @@ def test_birth_year_mismatch_penalty() -> None:
         make_record(),
     )
 
-    assert candidate.score_components.birth_year_adjustment == BIRTH_YEAR_MISMATCH_ADJUSTMENT
+    assert (
+        candidate.score_components.birth_year_adjustment
+        == BIRTH_YEAR_MISMATCH_ADJUSTMENT
+    )
     assert "birth_year_mismatch" in candidate.matched_on
 
 

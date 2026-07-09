@@ -97,28 +97,30 @@ def test_screen_response_accepts_candidates() -> None:
 
 
 def test_screen_response_rejects_invalid_decision() -> None:
+    screen_response_json = {
+        "decision": "ESCALATE",
+        "decision_reason": "Unsupported decision.",
+        "threshold": 0.8,
+        "candidates": []
+    }
     with pytest.raises(ValidationError):
-        ScreenResponse(
-            decision="ESCALATE",
-            decision_reason="Unsupported decision.",
-            threshold=0.8,
-            candidates=[],
-        )
+        ScreenResponse.model_validate(screen_response_json)
 
 
 def test_candidate_match_rejects_invalid_matched_name_type() -> None:
+    candidate_match_json = {
+            "watchlist_id": "wl-001",
+            "primary_name": "John A Smith",
+            "matched_name": "John Smith",
+            "matched_name_type": "nickname",
+            "entity_type": "person",
+            "score": 0.94,
+            "matched_on": ["name_similarity"],
+            "score_components": build_score_components(),
+            "explanation": "Invalid matched name type."
+    }
     with pytest.raises(ValidationError):
-        CandidateMatch(
-            watchlist_id="wl-001",
-            primary_name="John A Smith",
-            matched_name="John Smith",
-            matched_name_type="nickname",
-            entity_type="person",
-            score=0.94,
-            matched_on=["name_similarity"],
-            score_components=build_score_components(),
-            explanation="Invalid matched name type.",
-        )
+        CandidateMatch.model_validate(candidate_match_json)
 
 
 def test_candidate_match_rejects_invalid_score() -> None:
