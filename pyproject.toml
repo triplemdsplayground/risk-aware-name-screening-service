@@ -9,13 +9,16 @@ description = "Synthetic watchlist loading for a risk-aware name screening MVP"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "pydantic>=2.0"
+    "pydantic>=2.13",
+    "fastapi>=0.139",
 ]
 
 [project.optional-dependencies]
 dev = [
     "pytest>=9.0",
-    "mypy>=2.1"
+    "mypy>=2.1",
+    "httpx2>=2.5",
+    "uvicorn>=0.51",
     ]
 
 [tool.setuptools]
