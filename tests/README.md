@@ -1,1 +1,0 @@
-# Risk-aware-name-screening-service README.md

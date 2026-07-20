@@ -41,6 +41,18 @@ This project is a practical exercise in building a small but well-structured scr
 - `src/screening_service/schemas.py`: Pydantic request and response models
 - `src/screening_service/data/watchlist.sample.json`: synthetic sample watchlist data used by the MVP
 
+## Project Case Study
+
+This MVP models a common screening workflow at a high level: accept a submitted identity, compare it against watchlist-style records, rank the strongest candidates, and route sufficiently strong matches for review. The goal is not to simulate a full compliance platform, but to show the core mechanics of turning name comparison logic into a structured, testable service.
+
+The project starts with a deterministic baseline rather than ML so the behaviour stays inspectable from the beginning. For this MVP, that matters more than introducing a more complex model before there is a clear evaluation surface. A deterministic scorer makes it easier to verify expected outcomes, reason about edge cases, and change matching rules without losing sight of why a result moved.
+
+The code is split into schemas, matching, decisioning, service orchestration, and API layers to keep responsibilities narrow. Typed schemas define the contract at the boundary. Matching focuses on how candidate scores are built. Decisioning applies the review policy separately from similarity scoring. The service layer coordinates data loading, ranking, and response shaping. The API layer stays thin, which keeps the domain logic easier to test outside HTTP concerns.
+
+Explainable score components are included so results are not just ranked, but understandable. That breakdown is useful for debugging, for validating scoring changes in tests, and for showing which factors influenced a candidate's final score.
+
+The current threshold-based design makes a deliberate tradeoff: it is simple, predictable, and easy to tune, but it is also coarse. A single cutoff cannot capture more nuanced risk policies or richer match resolution. Even so, this structure provides a clean foundation for future sanctions-style ingestion, internal record normalisation, configurable scoring inputs, and stronger matching strategies without needing to redesign the API surface.
+
 ## Local Setup
 
 Python `3.12` is required.
